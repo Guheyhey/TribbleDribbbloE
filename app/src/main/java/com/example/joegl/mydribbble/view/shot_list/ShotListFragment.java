@@ -9,12 +9,14 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.joegl.mydribbble.R;
 import com.example.joegl.mydribbble.model.Shot;
+import com.example.joegl.mydribbble.model.User;
 import com.example.joegl.mydribbble.view.base.SpaceItemDecoration;
 
 import java.util.ArrayList;
@@ -69,8 +71,25 @@ public class ShotListFragment extends Fragment {
             shot.views_count = random.nextInt(10000);
             shot.buckets_count = random.nextInt(50);
             shot.likes_count = random.nextInt(200);
+            shot.description = makeDescription();
+
+            shot.user = new User();
+            shot.user.name = shot.title + " author";
             shotList.add(shot);
         }
         return shotList;
+    }
+
+    private static final String[] words = {
+            "bottle", "bowl", "brick", "building", "bunny", "cake", "car", "cat", "cup",
+            "desk", "dog", "duck", "elephant", "engineer", "fork", "glass", "griffon", "hat", "key",
+            "knife", "lawyer", "llama", "manual", "meat", "monitor", "mouse", "tangerine", "paper",
+            "pear", "pen", "pencil", "phone", "physicist", "planet", "potato", "road", "salad",
+            "shoe", "slipper", "soup", "spoon", "star", "steak", "table", "terminal", "treehouse",
+            "truck", "watermelon", "window"
+    };
+
+    private static String makeDescription() {
+        return TextUtils.join(" ", words);
     }
 }

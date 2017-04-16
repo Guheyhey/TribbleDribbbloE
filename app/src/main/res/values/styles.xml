@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.TextView" />
+
+    <style name="AppTheme.TextView.2" parent="AppTheme.TextView">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="AppTheme.TextView.2.White" parent="AppTheme.TextView.2">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.TextView.2.Dark" parent="AppTheme.TextView.2">
+        <item name="android:textColor">@color/text_dark</item>
+    </style>
+
 </resources>
