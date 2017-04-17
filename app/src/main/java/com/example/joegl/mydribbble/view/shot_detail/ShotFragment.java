@@ -27,8 +27,7 @@ public class ShotFragment extends Fragment {
 
     public static final String KEY_SHOT = "shot";
 
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
     public static ShotFragment newInstance(@NonNull Bundle args) {
         ShotFragment fragment = new ShotFragment();
