@@ -19,4 +19,12 @@
 
     <string name="shot_author_picture">Shot author picture</string>
     <string name="shot_count">{0,choice,0#0 shot|1#1 shot|1&lt;{0} shots}</string>
+
+    <string name="activity_login_btn_text">Log into Dribbble</string>
+    <string name="activity_login_icon">Dribbble icon</string>
+    <string name="auth_activity_title">Log into Dribbble</string>
+
+    <string name="login">Log in</string>
+    <string name="logout">Log out</string>
+    <string name="user_profile_picture">User profile picture</string>
 </resources>
