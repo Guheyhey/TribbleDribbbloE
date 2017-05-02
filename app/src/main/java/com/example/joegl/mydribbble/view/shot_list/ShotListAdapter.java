@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.example.joegl.mydribbble.R;
 import com.example.joegl.mydribbble.model.Shot;
 import com.example.joegl.mydribbble.utils.ModelUtils;
@@ -63,6 +64,11 @@ public class ShotListAdapter extends RecyclerView.Adapter {
             shotViewHolder.bucketCount.setText(String.valueOf(shot.buckets_count));
             shotViewHolder.viewCount.setText(String.valueOf(shot.views_count));
             shotViewHolder.image.setImageResource(R.drawable.shot_placeholder);
+
+            Glide.with(shotViewHolder.itemView.getContext())
+                    .load(shot.getImageUrl())
+                    .placeholder(R.drawable.shot_placeholder)
+                    .into(shotViewHolder.image);
 
             shotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
                 @Override
