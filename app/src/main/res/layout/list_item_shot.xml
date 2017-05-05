@@ -43,7 +43,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/shot_bucket_count"
                 android:drawablePadding="@dimen/spacing_xsmall"
-                android:drawableLeft="@drawable/ic_favorite_border_grey_700_18dp"
+                android:drawableLeft="@drawable/ic_favorite_grey_600_18dp"
                 tools:text="78"/>
 
             <TextView
