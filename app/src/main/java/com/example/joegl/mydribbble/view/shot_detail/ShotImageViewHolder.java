@@ -10,11 +10,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
  * Created by joegl on 2017/4/15.
  */
 
-public class ImageViewHolder extends RecyclerView.ViewHolder {
+public class ShotImageViewHolder extends RecyclerView.ViewHolder {
 
     SimpleDraweeView image;
 
-    public ImageViewHolder(View itemView) {
+    public ShotImageViewHolder(View itemView) {
         super(itemView);
         image = (SimpleDraweeView) itemView;
     }

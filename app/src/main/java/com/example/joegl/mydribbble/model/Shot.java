@@ -39,12 +39,13 @@ public class Shot {
     public String getImageUrl() {
         if (images == null) {
             return "";
+        } else if (animated) {
+            return images.get(IMAGE_NORMAL);
         }
 
-        String url = images.containsKey(IMAGE_HIDPI)
+        return images.containsKey(IMAGE_HIDPI)
                 ? images.get(IMAGE_HIDPI)
                 : images.get(IMAGE_NORMAL);
-        return url == null ? "" : url;
     }
 
 }

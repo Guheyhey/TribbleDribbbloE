@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.joegl.mydribbble.R;
 import com.example.joegl.mydribbble.dribbble.Dribbble;
+import com.example.joegl.mydribbble.dribbble.DribbbleException;
 import com.example.joegl.mydribbble.dribbble.auth.Auth;
 import com.example.joegl.mydribbble.dribbble.auth.AuthActivity;
 import com.google.gson.JsonSyntaxException;
@@ -70,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } catch (IOException | JsonSyntaxException e) {
+                        e.printStackTrace();
+                    } catch (DribbbleException e) {
                         e.printStackTrace();
                     }
                 }

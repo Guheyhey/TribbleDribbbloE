@@ -14,7 +14,7 @@ import butterknife.BindView;
  * Created by joegl on 2017/4/15.
  */
 
-public class InfoViewHolder extends BaseViewHolder {
+public class ShotDetailViewHolder extends BaseViewHolder {
 
     @BindView(R.id.shot_title) TextView title;
     @BindView(R.id.shot_description) TextView description;
@@ -27,7 +27,7 @@ public class InfoViewHolder extends BaseViewHolder {
     @BindView(R.id.shot_action_bucket) ImageButton bucketButton;
     @BindView(R.id.shot_action_share) TextView shareButton;
 
-    public InfoViewHolder(View view) {
+    public ShotDetailViewHolder(View view) {
         super(view);
     }
 }
