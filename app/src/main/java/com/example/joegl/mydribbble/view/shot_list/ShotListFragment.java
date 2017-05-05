@@ -42,7 +42,7 @@ public class ShotListFragment extends Fragment {
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
-    private static final int COUNT_PER_PAGE = 20;
+    private static final int COUNT_PER_PAGE = 12;
 
     private ShotListAdapter adapter;
 

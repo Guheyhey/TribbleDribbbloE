@@ -38,13 +38,13 @@ public class Shot {
     @NonNull
     public String getImageUrl() {
         if (images == null) {
-            return null;
-        } else if (animated) {
-            return images.get(IMAGE_NORMAL);
+            return "";
         }
-        return images.containsKey(IMAGE_HIDPI)
+
+        String url = images.containsKey(IMAGE_HIDPI)
                 ? images.get(IMAGE_HIDPI)
                 : images.get(IMAGE_NORMAL);
+        return url == null ? "" : url;
     }
 
 }
