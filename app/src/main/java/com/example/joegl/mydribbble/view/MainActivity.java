@@ -1,8 +1,10 @@
 package com.example.joegl.mydribbble.view;
 
-import android.app.Fragment;
+//import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,6 +20,7 @@ import com.example.joegl.mydribbble.R;
 import com.example.joegl.mydribbble.dribbble.Dribbble;
 import com.example.joegl.mydribbble.view.bucket_list.BucketListFragment;
 import com.example.joegl.mydribbble.view.shot_list.ShotListFragment;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             Log.i("Test1", "savedInstanceState");
-            getFragmentManager()
+            getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.fragment_container, ShotListFragment.newInstance())
                     .commit();
@@ -145,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 // 实际上此处一定不为空，添加判空是防止以后被修改导致逻辑错误挂掉app
                 if (fragment != null) {
                     Log.i("Test1", "fragment");
-                    getFragmentManager()
+                    getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.fragment_container, fragment)
                             .commit();
@@ -155,6 +158,31 @@ public class MainActivity extends AppCompatActivity {
                 // in fact, this statement will never be executed since the fragment won't be null
                 return false;
             }
+
+        });
+
+        setupNavHeader();
+    }
+
+    private void setupNavHeader() {
+        View headerView = navigationView.getHeaderView(0);
+
+        ((TextView) headerView.findViewById(R.id.nav_header_user_name)).setText(
+                Dribbble.getCurrentUser().name);
+
+        ((SimpleDraweeView) headerView.findViewById(R.id.nav_header_user_picture))
+                .setImageURI(Uri.parse(Dribbble.getCurrentUser().avatar_url));
+
+        headerView.findViewById(R.id.nav_header_logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dribbble.logout(MainActivity.this);
+
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
     }
+
 }

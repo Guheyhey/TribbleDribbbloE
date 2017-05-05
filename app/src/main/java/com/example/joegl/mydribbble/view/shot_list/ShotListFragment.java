@@ -1,7 +1,8 @@
 package com.example.joegl.mydribbble.view.shot_list;
 
 import android.annotation.TargetApi;
-import android.app.Fragment;
+//import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
