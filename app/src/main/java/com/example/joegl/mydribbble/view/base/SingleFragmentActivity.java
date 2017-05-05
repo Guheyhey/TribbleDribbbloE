@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.joegl.mydribbble.R;
+import com.example.joegl.mydribbble.view.bucket_list.BucketListFragment;
 import com.example.joegl.mydribbble.view.shot_detail.ShotFragment;
 
 import butterknife.BindView;
@@ -38,7 +39,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         setTitle(getActivityTitle());
 
         if (savedInstanceState == null) {
-            getFragmentManager()
+            getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.fragment_container, newFragment())
                     .commit();
@@ -64,5 +65,5 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     }
 
     @NonNull
-    protected abstract ShotFragment newFragment();
+    protected abstract Fragment newFragment();
 }

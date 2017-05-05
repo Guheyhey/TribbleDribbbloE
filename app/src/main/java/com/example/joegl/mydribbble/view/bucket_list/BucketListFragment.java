@@ -15,6 +15,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -40,16 +43,33 @@ import butterknife.ButterKnife;
 public class BucketListFragment extends Fragment {
 
     public static final int REQ_CODE_NEW_BUCKET = 100;
+    public static final String KEY_CHOOSING_MODE = "choose_mode";
+    public static final String KEY_CHOSEN_BUCKET_IDS = "chosen_bucket_ids";
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.fab) FloatingActionButton fab;
 
     private BucketListAdapter adapter;
+    private boolean isChoosingMode;
+    private List<String> chosenBucketIds;
 
-    public static BucketListFragment newInstance() {
-        return new BucketListFragment();
+    public static BucketListFragment newInstance(boolean isChoosingMode,
+                                                 @Nullable ArrayList<String> chosenBucketIds) {
+        Bundle args = new Bundle();
+        args.putBoolean(KEY_CHOOSING_MODE, isChoosingMode);
+        args.putStringArrayList(KEY_CHOSEN_BUCKET_IDS, chosenBucketIds);
+
+        BucketListFragment fragment = new BucketListFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+    }
 
     @Nullable
     @Override
@@ -63,6 +83,15 @@ public class BucketListFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        isChoosingMode = getArguments().getBoolean(KEY_CHOOSING_MODE);
+        if (isChoosingMode) {
+            chosenBucketIds = getArguments().getStringArrayList(KEY_CHOSEN_BUCKET_IDS);
+            if (chosenBucketIds == null) {
+                chosenBucketIds = new ArrayList<>();
+            }
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
@@ -76,7 +105,7 @@ public class BucketListFragment extends Fragment {
                 AsyncTaskCompat.executeParallel(
                         new LoadBucketTask(adapter.getDataCount() / Dribbble.COUNT_PER_PAGE + 1));
             }
-        });
+        }, isChoosingMode);
 
         recyclerView.setAdapter(adapter);
 
@@ -101,18 +130,27 @@ public class BucketListFragment extends Fragment {
         }
     }
 
-//    private List<Bucket> fakeData() {
-//        List<Bucket> bucketList = new ArrayList<>();
-//        Random random = new Random();
-//        for (int i = 0; i < 2; i++) {
-//            Bucket bucket = new Bucket();
-//            bucket.name = "Bucket" + i;
-//            bucket.shots_count = random.nextInt(10);
-//            bucketList.add(bucket);
-//        }
-//
-//        return bucketList;
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if (isChoosingMode) {
+            inflater.inflate(R.menu.bucket_list_choose_mode_menu, menu);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.save) {
+            ArrayList<String> chosenBucketIds = adapter.getSelectedBucketIds();
+
+            Intent result = new Intent();
+            result.putStringArrayListExtra(KEY_CHOSEN_BUCKET_IDS, chosenBucketIds);
+            getActivity().setResult(Activity.RESULT_OK, result);
+            getActivity().finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private class LoadBucketTask extends AsyncTask<Void, Void, List<Bucket>> {
 
         int page;

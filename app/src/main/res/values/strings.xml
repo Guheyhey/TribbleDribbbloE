@@ -13,6 +13,7 @@
     <string name="bucket">Bucket</string>
     <string name="like">Like</string>
     <string name="share">Share</string>
+    <string name="save">Save</string>
 
     <string name="open_drawer">open navigation drawer</string>
     <string name="close_drawer">close navigation drawer</string>
@@ -28,6 +29,7 @@
     <string name="logout">Log out</string>
     <string name="user_profile_picture">User profile picture</string>
     <string name="share_shot">Share this amazing shot!</string>
+    <string name="choose_bucket">Choose bucket</string>
 
     <string name="new_bucket_title">New bucket</string>
     <string name="new_bucket_create">Create</string>

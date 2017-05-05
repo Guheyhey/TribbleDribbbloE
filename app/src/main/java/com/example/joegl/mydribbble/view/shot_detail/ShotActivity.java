@@ -1,6 +1,7 @@
 package com.example.joegl.mydribbble.view.shot_detail;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import com.example.joegl.mydribbble.view.base.SingleFragmentActivity;
 
@@ -14,7 +15,7 @@ public class ShotActivity extends SingleFragmentActivity {
 
     @NonNull
     @Override
-    protected ShotFragment newFragment() {
+    protected Fragment newFragment() {
         return ShotFragment.newInstance(getIntent().getExtras());
     }
 
