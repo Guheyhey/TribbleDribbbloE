@@ -1,6 +1,5 @@
 package com.example.joegl.mydribbble.view.bucket_list;
 
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -13,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+
 import com.example.joegl.mydribbble.R;
 
 import butterknife.BindView;
@@ -23,8 +23,10 @@ public class NewBucketDialogFragment extends DialogFragment {
     public static final String KEY_BUCKET_NAME = "bucket_name";
     public static final String KEY_BUCKET_DESCRIPTION = "bucket_description";
 
-    @BindView(R.id.new_bucket_name) EditText bucketName;
-    @BindView(R.id.new_bucket_description) EditText bucketDescription;
+    @BindView(R.id.new_bucket_name)
+    EditText bucketName;
+    @BindView(R.id.new_bucket_description)
+    EditText bucketDescription;
 
     public static final String TAG = "NewBucketDialogFragment";
 
@@ -48,8 +50,8 @@ public class NewBucketDialogFragment extends DialogFragment {
                         result.putExtra(KEY_BUCKET_NAME, bucketName.getText().toString());
                         result.putExtra(KEY_BUCKET_DESCRIPTION, bucketDescription.getText().toString());
                         getTargetFragment().onActivityResult(BucketListFragment.REQ_CODE_NEW_BUCKET,
-                                Activity.RESULT_OK,
-                                result);
+                                                             Activity.RESULT_OK,
+                                                             result);
                         dismiss();
                     }
                 })

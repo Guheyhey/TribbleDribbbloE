@@ -8,16 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.example.joegl.mydribbble.R;
 import com.example.joegl.mydribbble.model.Bucket;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by joegl on 2017/4/12.
- */
 
 public class BucketListAdapter extends RecyclerView.Adapter {
 
@@ -34,33 +31,37 @@ public class BucketListAdapter extends RecyclerView.Adapter {
                              boolean isChoosingMode) {
         this.data = data;
         this.loadMoreListener = loadMoreListener;
-        this.showLoading = true;
         this.isChoosingMode = isChoosingMode;
+        this.showLoading = true;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_BUCKET) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item_bucket, parent, false);
+                                      .inflate(R.layout.list_item_bucket, parent, false);
             return new BucketViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item_loading, parent, false);
+                                      .inflate(R.layout.list_item_loading, parent, false);
             return new RecyclerView.ViewHolder(view) {};
         }
-
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        final int viewType = getItemViewType(position);
+        // note the warning for "final int position", it's for recycler view drag and drop
+        // after drag and drop onBindViewHolder will not be call again with the new position,
+        // that's why you should not assume this position is always fixed.
 
+        // in our case, we do not support drag and drop in bucket list because Dribbble API
+        // doesn't support reordering buckets, so using "final int position" is fine
+
+        final int viewType = getItemViewType(position);
         if (viewType == VIEW_TYPE_LOADING) {
             loadMoreListener.onLoadMore();
         } else {
             final Bucket bucket = data.get(position);
-
             BucketViewHolder bucketViewHolder = (BucketViewHolder) holder;
 
             Context context = holder.itemView.getContext();
@@ -74,7 +75,6 @@ public class BucketListAdapter extends RecyclerView.Adapter {
 
             bucketViewHolder.bucketName.setText(bucket.name);
             bucketViewHolder.bucketShotCount.setText(bucketShotCountString);
-
 
             if (isChoosingMode) {
                 bucketViewHolder.bucketChosen.setVisibility(View.VISIBLE);
@@ -100,7 +100,6 @@ public class BucketListAdapter extends RecyclerView.Adapter {
                 });
             }
         }
-
     }
 
     @Override

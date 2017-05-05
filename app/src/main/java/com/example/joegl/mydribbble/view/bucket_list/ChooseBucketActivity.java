@@ -3,11 +3,11 @@ package com.example.joegl.mydribbble.view.bucket_list;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+
 import com.example.joegl.mydribbble.R;
 import com.example.joegl.mydribbble.view.base.SingleFragmentActivity;
 
 import java.util.ArrayList;
-
 
 public class ChooseBucketActivity extends SingleFragmentActivity {
 
@@ -25,4 +25,3 @@ public class ChooseBucketActivity extends SingleFragmentActivity {
         return getString(R.string.choose_bucket);
     }
 }
-

@@ -3,14 +3,12 @@ package com.example.joegl.mydribbble.view.bucket_list;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -27,18 +25,14 @@ import com.example.joegl.mydribbble.model.Bucket;
 import com.example.joegl.mydribbble.view.base.SpaceItemDecoration;
 import com.google.gson.JsonSyntaxException;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-/**
- * Created by joegl on 2017/4/13.
- */
 
 public class BucketListFragment extends Fragment {
 
@@ -46,8 +40,10 @@ public class BucketListFragment extends Fragment {
     public static final String KEY_CHOOSING_MODE = "choose_mode";
     public static final String KEY_CHOSEN_BUCKET_IDS = "chosen_bucket_ids";
 
-    @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
 
     private BucketListAdapter adapter;
     private boolean isChoosingMode;
@@ -83,7 +79,6 @@ public class BucketListFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
         isChoosingMode = getArguments().getBoolean(KEY_CHOOSING_MODE);
         if (isChoosingMode) {
             chosenBucketIds = getArguments().getStringArrayList(KEY_CHOSEN_BUCKET_IDS);
@@ -92,21 +87,17 @@ public class BucketListFragment extends Fragment {
             }
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new SpaceItemDecoration(
                 getResources().getDimensionPixelSize(R.dimen.spacing_medium)));
 
         adapter = new BucketListAdapter(new ArrayList<Bucket>(), new BucketListAdapter.LoadMoreListener() {
-
             @Override
             public void onLoadMore() {
                 AsyncTaskCompat.executeParallel(
                         new LoadBucketTask(adapter.getDataCount() / Dribbble.COUNT_PER_PAGE + 1));
             }
         }, isChoosingMode);
-
         recyclerView.setAdapter(adapter);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +165,15 @@ public class BucketListFragment extends Fragment {
         protected void onPostExecute(List<Bucket> buckets) {
             // this method is executed on UI thread!!!!
             if (buckets != null) {
+                if (isChoosingMode) {
+                    // mark each bucket whether it's been chosen
+                    for (Bucket bucket : buckets) {
+                        if (chosenBucketIds.contains(bucket.id)) {
+                            bucket.isChoosing = true;
+                        }
+                    }
+                }
+
                 adapter.append(buckets);
                 adapter.setShowLoading(buckets.size() == Dribbble.COUNT_PER_PAGE);
             } else {
